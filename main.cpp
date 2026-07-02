@@ -39,7 +39,6 @@ std::string evaluarFortaleza(const std::string& contrasenia) {
 }
 
 int main() {
-    // Estructura base temporal para probar el validador
     std::string pass = "Prueba123!";
     std::cout << "Validando contraseña de prueba '" << pass << "': " << evaluarFortaleza(pass) << "\n";
     return 0;
@@ -75,9 +74,59 @@ std::string generarContrasenia(int longitud) {
 
 int main() {
     srand(time(0));
-    // Prueba básica temporal de ambas funciones antes de armar el menú
     std::string generada = generarContrasenia(10);
     std::cout << "Contraseña generada de prueba: " << generada << "\n";
     std::cout << "Fortaleza de la generada: " << evaluarFortaleza(generada) << "\n";
+    return 0;
+}
+
+void mostrarMenu() {
+    std::cout << "\n=========================================\n";
+    std::cout << "  GENERADOR Y VALIDADOR DE CONTRASE\241AS  \n";
+    std::cout << "=========================================\n";
+    std::cout << "1. Validar la fortaleza de una contrase\241a\n";
+    std::cout << "2. Generar una contrase\241a segura\n";
+    std::cout << "3. Salir\n";
+    std::cout << "Seleccione una opci\243n: ";
+}
+
+int main() {
+    srand(time(0));
+    int opcion;
+
+    do {
+        mostrarMenu();
+        if (!(std::cin >> opcion)) {
+            std::cout << "Por favor, ingrese un n\243mero v\241lido.\n";
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            continue;
+        }
+
+        std::cin.ignore(); 
+
+        if (opcion == 1) {
+            std::string pass;
+            std::cout << "Ingrese la contrase\241a a evaluar: ";
+            std::getline(std::cin, pass);
+            std::cout << "Resultado del diagn\243stico: " << evaluarFortaleza(pass) << "\n";
+        } 
+        else if (opcion == 2) {
+            int longitud;
+            std::cout << "\250De qu\202 longitud desea la contrase\241a?: ";
+            std::cin >> longitud;
+            if(longitud <= 0) {
+                std::cout << "Longitud no v\241lida.\n";
+            } else {
+                std::cout << "Contrase\241a sugerida: " << generarContrasenia(longitud) << "\n";
+            }
+        } 
+        else if (opcion != 3) {
+            std::cout << "Opci\243n inv\241lida. Intente de nuevo.\n";
+        }
+
+    } while (opcion != 3);
+
+    std::cout << "Saliendo del programa. \241Cuide sus datos!\n";
     return 0;
 }
