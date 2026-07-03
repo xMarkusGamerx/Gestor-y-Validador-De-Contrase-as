@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include <cstdlib> 
+#include <cstdlib>
 #include <ctime>
 
 std::string evaluarFortaleza(const std::string& contrasenia) {
@@ -26,22 +26,14 @@ std::string evaluarFortaleza(const std::string& contrasenia) {
     if (tieneNumero) criteriosCumplidos++;
     if (tieneEspecial) criteriosCumplidos++;
 
-    if (longitud < 6) {
-        return "Muy Débil (Demasiado corta)";
-    }
+    if (longitud < 6) return "Muy Debil (Demasiado corta)";
 
     switch (criteriosCumplidos) {
         case 4: return "Excelente / Muy Segura";
         case 3: return "Fuerte / Segura";
         case 2: return "Moderada (Mejorable)";
-        default: return "Débil";
+        default: return "Debil";
     }
-}
-
-int main() {
-    std::string pass = "Prueba123!";
-    std::cout << "Validando contraseña de prueba '" << pass << "': " << evaluarFortaleza(pass) << "\n";
-    return 0;
 }
 
 std::string generarContrasenia(int longitud) {
@@ -54,7 +46,7 @@ std::string generarContrasenia(int longitud) {
     const std::string todo = minusculas + mayusculas + numeros + especiales;
 
     std::string contrasenia = "";
-
+    
     contrasenia += minusculas[rand() % minusculas.length()];
     contrasenia += mayusculas[rand() % mayusculas.length()];
     contrasenia += numeros[rand() % numeros.length()];
@@ -72,32 +64,24 @@ std::string generarContrasenia(int longitud) {
     return contrasenia;
 }
 
-int main() {
-    srand(time(0));
-    std::string generada = generarContrasenia(10);
-    std::cout << "Contraseña generada de prueba: " << generada << "\n";
-    std::cout << "Fortaleza de la generada: " << evaluarFortaleza(generada) << "\n";
-    return 0;
-}
-
 void mostrarMenu() {
     std::cout << "\n=========================================\n";
-    std::cout << "  GENERADOR Y VALIDADOR DE CONTRASE\241AS  \n";
+    std::cout << "  GENERADOR Y VALIDADOR DE CONTRASEN\241AS  \n";
     std::cout << "=========================================\n";
-    std::cout << "1. Validar la fortaleza de una contrase\241a\n";
-    std::cout << "2. Generar una contrase\241a segura\n";
+    std::cout << "1. Validar la fortaleza de una contrasenia\n";
+    std::cout << "2. Generar una contrasenia segura\n";
     std::cout << "3. Salir\n";
-    std::cout << "Seleccione una opci\243n: ";
+    std::cout << "Seleccione una opcion: ";
 }
 
 int main() {
     srand(time(0));
     int opcion;
-
+    
     do {
         mostrarMenu();
         if (!(std::cin >> opcion)) {
-            std::cout << "Por favor, ingrese un n\243mero v\241lido.\n";
+            std::cout << "Por favor, ingrese un numero valido.\n";
             std::cin.clear();
             std::cin.ignore(10000, '\n');
             continue;
@@ -107,26 +91,26 @@ int main() {
 
         if (opcion == 1) {
             std::string pass;
-            std::cout << "Ingrese la contrase\241a a evaluar: ";
+            std::cout << "Ingrese la contrasenia a evaluar: ";
             std::getline(std::cin, pass);
-            std::cout << "Resultado del diagn\243stico: " << evaluarFortaleza(pass) << "\n";
+            std::cout << "Resultado del diagnostico: " << evaluarFortaleza(pass) << "\n";
         } 
         else if (opcion == 2) {
             int longitud;
-            std::cout << "\250De qu\202 longitud desea la contrase\241a?: ";
+            std::cout << "\250De que longitud desea la contrasenia?: ";
             std::cin >> longitud;
             if(longitud <= 0) {
-                std::cout << "Longitud no v\241lida.\n";
+                std::cout << "Longitud no valida.\n";
             } else {
-                std::cout << "Contrase\241a sugerida: " << generarContrasenia(longitud) << "\n";
+                std::cout << "Contrasenia sugerida: " << generarContrasenia(longitud) << "\n";
             }
         } 
         else if (opcion != 3) {
-            std::cout << "Opci\243n inv\241lida. Intente de nuevo.\n";
+            std::cout << "Opcion invalida. Intente de nuevo.\n";
         }
 
     } while (opcion != 3);
 
-    std::cout << "Saliendo del programa. \241Cuide sus datos!\n";
+    std::cout << "Saliendo del programa. ¡Cuide sus datos!\n";
     return 0;
 }
